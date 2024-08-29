@@ -188,8 +188,11 @@ export function HeaderConfig({
     // Back button menu is not disabled
     headerBackButtonMenuEnabled !== false;
 
+  const isThereCenterView = headerTitleAlign === 'center';
+
   return (
     <ScreenStackHeaderConfig
+      style={{ flexDirection: 'row', width: '100%' }}
       backButtonInCustomView={backButtonInCustomView}
       backgroundColor={headerBackgroundColor}
       backTitle={headerBackTitle}
@@ -250,8 +253,8 @@ export function HeaderConfig({
       ) : (
         <>
           {headerLeftElement != null || typeof headerTitle === 'function' ? (
-            <ScreenStackHeaderLeftView>
-              <View style={styles.row}>
+            <ScreenStackHeaderLeftView style={ !isThereCenterView ? { flex: 1 } : null}>
+              <View style={[styles.row, { flex: 1 }]}>
                 {headerLeftElement}
                 {headerTitleAlign !== 'center' ? (
                   typeof headerTitle === 'function' ? (
@@ -269,7 +272,7 @@ export function HeaderConfig({
             </ScreenStackHeaderLeftView>
           ) : null}
           {headerTitleAlign === 'center' ? (
-            <ScreenStackHeaderCenterView>
+            <ScreenStackHeaderCenterView style={{ flex: 1 }}>
               {typeof headerTitle === 'function' ? (
                 headerTitleElement
               ) : (
